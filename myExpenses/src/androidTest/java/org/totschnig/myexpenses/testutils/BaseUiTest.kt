@@ -2,7 +2,6 @@ package org.totschnig.myexpenses.testutils
 
 import android.app.Activity
 import android.content.ContentResolver
-import android.content.ContentUris
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
@@ -34,13 +33,13 @@ import org.totschnig.myexpenses.db2.Repository
 import org.totschnig.myexpenses.db2.saveCategory
 import org.totschnig.myexpenses.model.*
 import org.totschnig.myexpenses.model2.Account
+import org.totschnig.myexpenses.model2.Category
 import org.totschnig.myexpenses.preference.PrefHandler
 import org.totschnig.myexpenses.provider.DatabaseConstants.STATUS_NONE
 import org.totschnig.myexpenses.provider.PlannerUtils
 import org.totschnig.myexpenses.util.DebugCurrencyFormatter
 import org.totschnig.myexpenses.util.distrib.DistributionHelper
 import org.totschnig.myexpenses.util.locale.HomeCurrencyProvider
-import org.totschnig.myexpenses.viewmodel.data.Category
 import java.util.*
 import java.util.concurrent.TimeoutException
 import org.totschnig.myexpenses.test.R as RT
@@ -91,7 +90,7 @@ abstract class BaseUiTest<A: ProtectedFragmentActivity> {
 
     protected fun closeKeyboardAndSave() {
         closeSoftKeyboard()
-        onView(ViewMatchers.withId(R.id.fab)).perform(ViewActions.click())
+        clickFab()
     }
 
     fun typeToAndCloseKeyBoard(@IdRes editTextId: Int, text: String) {
@@ -235,5 +234,9 @@ abstract class BaseUiTest<A: ProtectedFragmentActivity> {
             part.saveAsNew(contentResolver)
             id
         }
+    }
+
+    fun clickFab() {
+        onView(ViewMatchers.withId(R.id.fab)).perform(ViewActions.click())
     }
 }
